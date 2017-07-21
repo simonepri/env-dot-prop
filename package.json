@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/simonepri/env-configr/issues"
   },
-  "homepage": "https://github.com/simonepri/env-configr#readme"
+  "homepage": "https://github.com/simonepri/env-configr#readme",
+  "xo": {
+    "space": true
+  }
 }
