@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Hierarchical configuration from environment variables!",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "dot-prop": "^4.1.1"
+  },
   "devDependencies": {
     "ava": "*",
     "codecov": "^2.2.0",
