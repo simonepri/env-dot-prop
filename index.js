@@ -25,6 +25,4 @@ function extend(obj, prefix) {
     });
 }
 
-module.exports = {
-  extend
-};
+module.exports = extend;
