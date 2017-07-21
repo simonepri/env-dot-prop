@@ -6,18 +6,27 @@ const dotProp = require('dot-prop');
  * Extends the object with values parsed from process.env object using the '_'
  * char as delimitator for nested properties.
  * @param  {object} obj The object to extend with environment variables
- * @param  {string} prefix Restrict envs parsed to those starting with this prefix
+ * @param  {string} namespace Restrict envs parsed to those in that path
  */
-function extend(obj, prefix) {
+function extend(obj, namespace) {
+  const prefix = namespace
+    .replace(/\./g, '_')
+    .toUpperCase();
+
   Object.keys(process.env)
     .filter(key => {
       return key.startsWith(prefix);
     })
+    .sort((a, b) => a.length - b.length)
     .forEach(key => {
       const val = JSON.parse(process.env[key]);
+      let start = prefix.length;
 
+      if (key.length > prefix.length && key[prefix.length] === '_') {
+        start += 1;
+      }
       const path = key
-        .slice(prefix.length)
+        .substring(start)
         .replace(/_/g, '.')
         .toLowerCase();
 
