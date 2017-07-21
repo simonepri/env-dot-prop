@@ -1,0 +1,43 @@
+{
+  "name": "env-configr",
+  "version": "0.0.0",
+  "description": "Hierarchical configuration from environment variables!",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "*",
+    "codecov": "^2.2.0",
+    "nyc": "^11.0.3",
+    "xo": "*"
+  },
+  "scripts": {
+    "test": "xo && ava",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonepri/env-configr.git"
+  },
+  "author": {
+    "name": "Simone Primarosa",
+    "email": "simone.pri@hotmail.it"
+  },
+  "keywords": [
+    "env-config",
+    "env-configs",
+    "env-configr",
+    "env-configuration",
+    "env-configurator",
+    "config",
+    "configs",
+    "configr",
+    "configuration",
+    "configurator",
+    "env"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simonepri/env-configr/issues"
+  },
+  "homepage": "https://github.com/simonepri/env-configr#readme"
+}
