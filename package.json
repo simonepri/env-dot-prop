@@ -1,7 +1,7 @@
 {
   "name": "env-dot-prop",
   "version": "0.0.0",
-  "description": "Hierarchical configuration from environment variables!",
+  "description": "Get, set, or delete nested properties of process.env using a dot path",
   "main": "index.js",
   "dependencies": {
     "dot-prop": "^4.1.1"
