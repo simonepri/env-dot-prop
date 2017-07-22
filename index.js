@@ -2,14 +2,32 @@
 
 const dotProp = require('dot-prop');
 
+function transform(str, from, to) {
+  let out = '';
+  const escaped = '\\' + to;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === to) {
+      out += escaped;
+    } else if (str[i] === from) {
+      out += to;
+    } else if (str[i] === '\\' && i + 1 < str.length && str[i + 1] === from) {
+      out += from;
+      i++;
+    } else {
+      out += str[i];
+    }
+  }
+  return out;
+}
+
 /**
  * Converts a dot-path to an underscore-path.
  * @param  {string} path Lowercased string separated by dots
  * @return {string} Capitalized string separated by underscores
  */
 function toUnderscore(path) {
-  return path
-    .replace(/\./g, '_')
+  return transform(path, '.', '_')
     .toUpperCase();
 }
 
@@ -19,8 +37,7 @@ function toUnderscore(path) {
  * @return {string} Lowercased string separated by dots
  */
 function toDot(env) {
-  return env
-    .replace(/_/g, '.')
+  return transform(env, '_', '.')
     .toLowerCase();
 }
 
