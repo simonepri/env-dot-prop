@@ -1,5 +1,5 @@
 {
-  "name": "env-configr",
+  "name": "env-dot-prop",
   "version": "0.0.0",
   "description": "Hierarchical configuration from environment variables!",
   "main": "index.js",
@@ -18,13 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simonepri/env-configr.git"
+    "url": "git+https://github.com/simonepri/env-dot-prop.git"
   },
   "author": {
     "name": "Simone Primarosa",
     "email": "simone.pri@hotmail.it"
   },
   "keywords": [
+    "env-dot-prop",
+    "dot-prop",
     "env-config",
     "env-configs",
     "env-configr",
@@ -35,13 +37,14 @@
     "configr",
     "configuration",
     "configurator",
-    "env"
+    "env",
+    "environment"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/simonepri/env-configr/issues"
+    "url": "https://github.com/simonepri/env-dot-prop/issues"
   },
-  "homepage": "https://github.com/simonepri/env-configr#readme",
+  "homepage": "https://github.com/simonepri/env-dot-prop#readme",
   "xo": {
     "space": true
   }
