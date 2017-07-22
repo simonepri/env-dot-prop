@@ -39,12 +39,18 @@ function get(path, defaultValue) {
     .filter(key => key.startsWith(prefix))
     .sort((a, b) => a.length - b.length)
     .forEach(key => {
-      const val = JSON.parse(process.env[key]);
-      let start = prefix.length;
+      let val;
+      try {
+        val = JSON.parse(process.env[key]);
+      } catch (err) {
+        val = process.env[key];
+      }
 
+      let start = prefix.length;
       if (key.length > prefix.length && key[prefix.length] === '_') {
         start += 1;
       }
+
       const path = toDot(key.substring(start));
       if (path === '') {
         obj = val;
