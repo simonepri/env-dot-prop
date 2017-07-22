@@ -109,7 +109,7 @@ Type: `any`
 
 Value to set.
 
-### del(path)
+### delete(path)
 
 Deletes an env key at the path specified. If nested keys are present they will be deleted too.
 
