@@ -90,7 +90,7 @@ function del(path) {
 }
 
 /**
- * Returns wheather an env key exists at the path specified.
+ * Returns whether an env key exists at the path specified.
  * @param  {string} path Dot separated path
  * @return {} true if at least an env key with that path exists
  */
