@@ -12,6 +12,67 @@ $ npm install --save env-dot-prop
 ## Usage
 
 ```js
+const envDotProp = require('./index.js');
+
+// Let's assume process.env contains the following keys
+process.env = {
+  'FOO_BAR': 'unicorn',
+  'FOO_DOT.DOT': 'pony',
+  'FOO_UND\\_UND': 'whale'
+};
+
+console.log(process.env);
+//=> { FOO_BAR: 'unicorn', 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
+envDotProp.get('');
+//=> { foo: { bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale' } }
+
+// getter
+envDotProp.get('foo.bar');
+//=> 'unicorn'
+
+envDotProp.get('foo.notDefined.deep');
+//=> undefined
+
+envDotProp.get('foo.notDefined.deep', 'default value');
+//=> 'default value'
+
+envDotProp.get('foo.dot\\.dot');
+//=> 'pony'
+
+// setter
+envDotProp.set('foo.bar', 'b');
+envDotProp.get('foo.bar');
+//=> 'b'
+
+envDotProp.get('');
+//=> { foo: { bar: 'b', 'dot.dot': 'pony', und_und: 'whale' } }
+
+envDotProp.set('foo.baz.e', 'x');
+envDotProp.get('foo.baz.e');
+//=> 'x'
+envDotProp.get('foo.baz');
+//=> { e: 'x' }
+
+envDotProp.get('');
+//=> { foo: { bar: 'b', baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' } }
+
+// has
+envDotProp.has('foo.bar');
+//=> true
+
+// deleter
+envDotProp.delete('foo.bar');
+envDotProp.get('foo');
+//=> { baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' }
+
+envDotProp.delete('foo.baz.e');
+envDotProp.get('foo.baz');
+//=> undefined
+
+envDotProp.get('');
+//=> { foo: { 'dot.dot': 'pony', und_und: 'whale' } }
+console.log(process.env);
+//=> { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
 ```
 
 ## API
