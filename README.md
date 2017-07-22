@@ -12,7 +12,7 @@ $ npm install --save env-dot-prop
 ## Usage
 
 ```js
-const envDotProp = require('./index.js');
+const envDotProp = require('env-dot-prop');
 
 // Let's assume process.env contains the following keys
 process.env = {
