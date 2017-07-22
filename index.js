@@ -46,7 +46,6 @@ function get(path, defaultValue) {
         start += 1;
       }
       const path = toDot(key.substring(start));
-      console.log(path);
       if (path === '') {
         obj = val;
       } else {
