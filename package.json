@@ -46,6 +46,10 @@
   },
   "homepage": "https://github.com/simonepri/env-dot-prop#readme",
   "xo": {
-    "space": true
+    "space": true,
+    "overrides": [ {
+      "files": "index.js",
+      "esnext": false
+    }]
   }
 }

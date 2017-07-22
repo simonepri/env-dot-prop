@@ -124,8 +124,8 @@ function has(path) {
 }
 
 module.exports = {
-  get,
-  set,
+  get: get,
+  set: set,
   delete: del,
-  has
+  has: has
 };
