@@ -103,6 +103,6 @@ function has(path) {
 module.exports = {
   get,
   set,
-  del,
+  delete: del,
   has
 };
