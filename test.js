@@ -43,3 +43,21 @@ test('Transform fails', t => {
   t.is(m.get('..'), undefined);
   delete process.env['..'];
 });
+
+test('README examples', t => {
+  process.env = {
+    FOO_BAR: 'unicorn',
+    'FOO_DOT.DOT': 'pony',
+    'FOO_UND\\_UND': 'whale'
+  };
+
+  t.is(m.get('foo.bar'), 'unicorn');
+  t.is(m.get('foo.notDefined.deep'), undefined);
+  t.is(m.get('foo.notDefined.deep', 'default value'), 'default value');
+  t.is(m.get('foo.dot\\.dot'), 'pony');
+  t.is(m.get('foo.bar'), 'b');
+  t.is(m.get('foo.baz.e'), 'x');
+  t.is(m.get('foo.baz'), {e: 'x'});
+  t.is(m.has('foo.bar'), true);
+  t.is(m.get('foo.baz'), undefined);
+});
