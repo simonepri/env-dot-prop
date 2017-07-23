@@ -55,9 +55,12 @@ test('README examples', t => {
   t.is(m.get('foo.notDefined.deep'), undefined);
   t.is(m.get('foo.notDefined.deep', 'default value'), 'default value');
   t.is(m.get('foo.dot\\.dot'), 'pony');
+  m.set('foo.bar', 'b');
   t.is(m.get('foo.bar'), 'b');
+  m.set('foo.baz.e', 'x');
   t.is(m.get('foo.baz.e'), 'x');
-  t.is(m.get('foo.baz'), {e: 'x'});
+  t.deepEqual(m.get('foo.baz'), {e: 'x'});
   t.is(m.has('foo.bar'), true);
+  m.delete('foo.baz.e');
   t.is(m.get('foo.baz'), undefined);
 });
