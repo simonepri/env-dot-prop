@@ -103,7 +103,7 @@ Default value to return if there aren't keys in the path provided
 
 Type: `object`
 
-The option below plus the one available [here](#options-5).
+The option below plus the one available [here](#options-4).
 
 #### parse
 
@@ -134,7 +134,7 @@ Value to set.
 
 Type: `object`
 
-The option below plus the one available [here](#options-5).
+The option below plus the one available [here](#options-4).
 
 #### stringify
 
