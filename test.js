@@ -109,6 +109,14 @@ test('shouldn\'t stringify a string with the stringify option', t => {
   delete process.env.test;
 });
 
+test('should stringify a circular object with the stringify option', t => {
+  const a = {b: 5};
+  a.a = a;
+  m.set('test', a, {stringify: true});
+  t.deepEqual(m.get('test'), '{"b":5,"a":"~"}');
+  delete process.env.test;
+});
+
 test('should pass README examples', t => {
   const env = process.env;
   process.env = {
