@@ -157,7 +157,7 @@ Dot separated path.
 
 Type: `object`
 
-See the [options list]()
+See the [options list](#options-4)
 
 ### has(path, [options])
 
@@ -173,7 +173,7 @@ Dot separated path.
 
 Type: `object`
 
-See the [options list]()
+See the [options list](#options-4)
 
 ### options
 
