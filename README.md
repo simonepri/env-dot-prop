@@ -110,7 +110,7 @@ The option below plus the one available [here](#options-4).
 Type: `boolean`<br>
 Default: `false`
 
-If true the value returned is wrapped with a JSON.parse call
+If true the value returned is parsed using [`circular-json`](https://github.com/WebReflection/circular-json)
 
 ### set(path, value, [options])
 
@@ -141,7 +141,7 @@ The option below plus the one available [here](#options-4).
 Type: `boolean`<br>
 Default: `false`
 
-If true the value passed is wrapped with a JSON.stringify call
+If true the value passed is stringified using [`circular-json`](https://github.com/WebReflection/circular-json)
 
 ### delete(path, [options])
 
