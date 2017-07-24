@@ -95,7 +95,9 @@ Default value to return if there aren't keys in the path provided
 
 ### set(path, value)
 
-Returns the values of env keys at the path specified.
+Sets an env key at the path specified. If nested keys are present they will be deleted.
+Assigning a property on `process.env` will implicitly convert the value to a string.
+See the [node documentation](https://nodejs.org/api/process.html#process_process_env) for more information.
 
 #### path
 
