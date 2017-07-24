@@ -4,6 +4,7 @@
   "description": "Get, set, or delete nested properties of process.env using a dot path",
   "main": "index.js",
   "dependencies": {
+    "circular-json": "^0.3.3",
     "dot-prop": "^4.1.1"
   },
   "devDependencies": {
@@ -47,14 +48,22 @@
   "homepage": "https://github.com/simonepri/env-dot-prop#readme",
   "xo": {
     "space": true,
-    "overrides": [{
-      "files": "index.js",
-      "esnext": false
-    }, {
-      "files": "test.js",
-      "rules": {
-        "camelcase": ["error", {"properties": "never"}]
+    "overrides": [
+      {
+        "files": "index.js",
+        "esnext": false
+      },
+      {
+        "files": "test.js",
+        "rules": {
+          "camelcase": [
+            "error",
+            {
+              "properties": "never"
+            }
+          ]
+        }
       }
-    }]
+    ]
   }
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 const dotProp = require('dot-prop');
+const circularJSON = require('circular-json');
 
 /**
  * Converts a dot-path to an underscore-path.
@@ -145,7 +146,7 @@ function parse(str, opts) {
   let ret;
   if (opts && opts.parse) {
     try {
-      ret = JSON.parse(str);
+      ret = circularJSON.parse(str);
     } catch (err) {
       ret = String(str);
     }
@@ -163,7 +164,7 @@ function stringify(val, opts) {
   let ret;
   if (opts && opts.stringify) {
     try {
-      ret = JSON.stringify(val);
+      ret = circularJSON.stringify(val);
     } catch (err) {
       ret = String(val);
     }
