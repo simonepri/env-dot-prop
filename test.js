@@ -93,6 +93,22 @@ test('should parse an object with the parse option', t => {
   delete process.env.test;
 });
 
+test('should stringify an object with the stringify option', t => {
+  m.set('test', {value: 42});
+  t.is(m.get('test', {parse: true}), '[object Object]');
+  m.set('test', {value: 42}, {stringify: true});
+  t.deepEqual(m.get('test', {parse: true}), {value: 42});
+  delete process.env.test;
+});
+
+test('shouldn\'t stringify a string with the stringify option', t => {
+  m.set('test', 'hello world');
+  t.is(m.get('test'), 'hello world');
+  m.set('test', 'hello world', {stringify: true});
+  t.deepEqual(m.get('test'), 'hello world');
+  delete process.env.test;
+});
+
 test('should pass README examples', t => {
   const env = process.env;
   process.env = {
