@@ -50,6 +50,11 @@
     "overrides": [{
       "files": "index.js",
       "esnext": false
+    }, {
+      "files": "test.js",
+      "rules": {
+        "camelcase": ["error", {"properties": "never"}]
+      }
     }]
   }
 }

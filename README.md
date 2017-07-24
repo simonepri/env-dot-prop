@@ -69,15 +69,21 @@ envDotProp.delete('foo.baz.e');
 envDotProp.get('foo.baz');
 //=> undefined
 
+envDotProp.set('parse': 42);
+envDotProp.get('parse');
+//=> '42'
+envDotProp.get('parse', {parse: true});
+//=> 42
+
 envDotProp.get('');
-//=> { foo: { 'dot.dot': 'pony', und_und: 'whale' } }
+//=> { foo: { 'dot.dot': 'pony', und_und: 'whale' }, parse: '42' }
 console.log(process.env);
 //=> { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
 ```
 
 ## API
 
-### get(path, [defaultValue])
+### get(path, [defaultValue], [options])
 
 Returns the values of env keys at the path specified.
 
@@ -89,11 +95,24 @@ Dot separated path.
 
 #### defaultValue
 
-Type: `any`
+Type: `string`
 
 Default value to return if there aren't keys in the path provided
 
-### set(path, value)
+#### options
+
+Type: `object`
+
+The option below plus the one available [here](#options-5).
+
+#### parse
+
+Type: `boolean`<br>
+Default: `false`
+
+If true the value returned is wrapped with a JSON.parse call
+
+### set(path, value, [options])
 
 Sets an env key at the path specified. If nested keys are present they will be deleted.
 Assigning a property on `process.env` will implicitly convert the value to a string.
@@ -107,11 +126,24 @@ Dot separated path.
 
 #### value
 
-Type: `any`
+Type: `string`
 
 Value to set.
 
-### delete(path)
+#### options
+
+Type: `object`
+
+The option below plus the one available [here](#options-5).
+
+#### stringify
+
+Type: `boolean`<br>
+Default: `false`
+
+If true the value passed is wrapped with a JSON.stringify call
+
+### delete(path, [options])
 
 Deletes an env key at the path specified. If nested keys are present they will be deleted too.
 
@@ -121,7 +153,13 @@ Type: `string`
 
 Dot separated path.
 
-### has(path)
+#### options
+
+Type: `object`
+
+See the [options list]()
+
+### has(path, [options])
 
 Returns whether an env key exists at the path specified.
 
@@ -131,6 +169,23 @@ Type: `string`
 
 Dot separated path.
 
+#### options
+
+Type: `object`
+
+See the [options list]()
+
+### options
+
+#### caseSensitive
+
+Type: `boolean`<br>
+Default: `false`
+
+If true no case conversion is performed from the dot path provided to the env key search.
+> Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`.
+
+If false getting `tesT.kEy` is equal to getting `test.key` or `TEST.KEY`. They will all looks for `TEST_KEY` environment variable.
 
 ## Authors
 * **Simone Primarosa** - [simonepri](https://github.com/simonepri)
