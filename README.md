@@ -105,7 +105,7 @@ Type: `object`
 
 The option below plus the one available [here](#options-4).
 
-#### parse
+##### parse
 
 Type: `boolean`<br>
 Default: `false`
@@ -136,7 +136,7 @@ Type: `object`
 
 The option below plus the one available [here](#options-4).
 
-#### stringify
+##### stringify
 
 Type: `boolean`<br>
 Default: `false`
