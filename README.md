@@ -1,7 +1,25 @@
-# env-dot-prop
-[![Travis CI](https://travis-ci.org/simonepri/env-dot-prop.svg?branch=master)](https://travis-ci.org/simonepri/env-dot-prop) [![Codecov](https://img.shields.io/codecov/c/github/simonepri/env-dot-prop/master.svg)](https://codecov.io/gh/simonepri/env-dot-prop) [![npm](https://img.shields.io/npm/dm/env-dot-prop.svg)](https://www.npmjs.com/package/env-dot-prop) [![npm version](https://img.shields.io/npm/v/env-dot-prop.svg)](https://www.npmjs.com/package/env-dot-prop) [![npm dependencies](https://david-dm.org/simonepri/env-dot-prop.svg)](https://david-dm.org/simonepri/env-dot-prop) [![npm dev dependencies](https://david-dm.org/simonepri/env-dot-prop/dev-status.svg)](https://david-dm.org/simonepri/env-dot-prop#info=devDependencies)
-> ♻️ Get, set, or delete nested properties of process.env using a dot path
+<h1 align="center">
+  <a href="https://github.com/simonepri/env-dot-prop"><img src="./media/env-dot-prop.png" alt="env-dot-prop" /></a>
+</h1>
+<div align="center">
+  <a href="https://travis-ci.org/simonepri/env-dot-prop"> <img src="https://travis-ci.org/simonepri/env-dot-prop.svg?branch=master" alt="build status"></a>
+  <a href="https://codecov.io/gh/simonepri/env-dot-prop"><img src="https://img.shields.io/codecov/c/github/simonepri/env-dot-prop/master.svg" alt="code coverage" /></a>
+  <a href="https://github.com/sindresorhus/xo"><img src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg" alt="code style" /></a>
+  <a href="https://www.npmjs.com/package/env-dot-prop"><img src="https://img.shields.io/npm/v/env-dot-prop.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/env-dot-prop"><img src="https://img.shields.io/npm/dm/env-dot-prop.svg" alt="npm downloads" /></a>
+  <a href="https://david-dm.org/simonepri/env-dot-prop"><img src="https://david-dm.org/simonepri/env-dot-prop.svg" alt="dependencies" /></a>
+  <a href="https://david-dm.org/simonepri/env-dot-prop#info=devDependencies"><img src="https://david-dm.org/simonepri/env-dot-prop/dev-status.svg" alt="dev dependencies" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/simonepri/env-dot-prop.svg" alt="license" /></a>
+</div>
+<br />
+<div align="center">
+  ♻️ Get, set, or delete nested properties of process.env using a dot path
+</div>
 
+## Background
+
+This package aim to let you access to your environment variables as if they were JavaScript object.
+See [this guide](https://github.com/simonepri/env-dot-prop/wiki/Create-a-12-factor-compliant-configuration-system) to understand how to use this package to create a [12 Factor compliant](https://12factor.net/config) configuration system for you app.
 
 ## Install
 
