@@ -83,109 +83,62 @@ console.log(process.env);
 
 ## API
 
-### get(path, [defaultValue], [options])
+<a name="get"></a>
 
+## get(path, [defaultValue], [opts]) ⇒ <code>string</code>
 Returns the values of env keys at the path specified.
 
-#### path
+**Returns**: <code>string</code> - The value at the path specified.   
 
-Type: `string`
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Dot separated path. |
+| [defaultValue] | <code>string</code> | Default value to return if there aren't keys in the path provided. |
+| [opts] | <code>object</code> | Additional options. |
+| [opts.parse] | <code>boolean</code> | If true the value returned is parsed using [`circular-json`](https://github.com/WebReflection/circular-json). |
+| [opts.caseSensitive] | <code>boolean</code> | If true no case conversion is performed from the dot path provided to the env key search.<br>Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`. |
 
-Dot separated path.
+<a name="set"></a>
 
-#### defaultValue
-
-Type: `string`
-
-Default value to return if there aren't keys in the path provided
-
-#### options
-
-Type: `object`
-
-The option below plus the one available [here](#options-4).
-
-##### parse
-
-Type: `boolean`<br>
-Default: `false`
-
-If true the value returned is parsed using [`circular-json`](https://github.com/WebReflection/circular-json)
-
-### set(path, value, [options])
-
+## set(path, value, [opts])
 Sets an env key at the path specified. If nested keys are present they will be deleted.
 Assigning a property on `process.env` will implicitly convert the value to a string.
 See the [node documentation](https://nodejs.org/api/process.html#process_process_env) for more information.
 
-#### path
 
-Type: `string`
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Dot separated path. |
+| value | <code>string</code> | Value to set. |
+| [opts] | <code>object</code> | Additional options. |
+| [opts.stringify] | <code>boolean</code> | If true the value passed is stringified using [`circular-json`](https://github.com/WebReflection/circular-json). |
+| [opts.caseSensitive] | <code>boolean</code> | If true no case conversion is performed from the dot path provided to the env key search.<br>Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`. |
 
-Dot separated path.
+<a name="del"></a>
 
-#### value
+## del(path, [opts])
+Deletes an env key at the path specified. If nested keys are present they will
+be deleted too.
 
-Type: `string`
 
-Value to set.
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Dot separated path. |
+| [opts] | <code>object</code> | Additional options. |
+| [opts.caseSensitive] | <code>boolean</code> | If true no case conversion is performed from the dot path provided to the env key search.<br>Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`. |
 
-#### options
+<a name="has"></a>
 
-Type: `object`
-
-The option below plus the one available [here](#options-4).
-
-##### stringify
-
-Type: `boolean`<br>
-Default: `false`
-
-If true the value passed is stringified using [`circular-json`](https://github.com/WebReflection/circular-json)
-
-### delete(path, [options])
-
-Deletes an env key at the path specified. If nested keys are present they will be deleted too.
-
-#### path
-
-Type: `string`
-
-Dot separated path.
-
-#### options
-
-Type: `object`
-
-See the [options list](#options-4)
-
-### has(path, [options])
-
+## has(path, [opts]) ⇒ <code>boolean</code>
 Returns whether an env key exists at the path specified.
 
-#### path
+**Returns**: <code>boolean</code> - true if at least an env key with that path exists.   
 
-Type: `string`
-
-Dot separated path.
-
-#### options
-
-Type: `object`
-
-See the [options list](#options-4)
-
-### options
-
-#### caseSensitive
-
-Type: `boolean`<br>
-Default: `false`
-
-If true no case conversion is performed from the dot path provided to the env key search.
-> Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`.
-
-If false getting `tesT.kEy` is equal to getting `test.key` or `TEST.KEY`. They will all looks for `TEST_KEY` environment variable.
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>string</code> | Dot separated path. |
+| [opts] | <code>object</code> | Additional options. |
+| [opts.caseSensitive] | <code>boolean</code> | If true no case conversion is performed from the dot path provided to the env key search.<br>Eg: 'tesT.kEy' will look for `tesT_kEy` environment variable instead of `TEST_KEY`. |
 
 ## Authors
 * **Simone Primarosa** - [simonepri](https://github.com/simonepri)
