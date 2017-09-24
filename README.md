@@ -16,69 +16,69 @@ const envDotProp = require('env-dot-prop');
 
 // Let's assume process.env contains the following keys
 process.env = {
-  'FOO_BAR': 'unicorn',
+  FOO_BAR: 'unicorn',
   'FOO_DOT.DOT': 'pony',
   'FOO_UND\\_UND': 'whale'
 };
 
 console.log(process.env);
-//=> { FOO_BAR: 'unicorn', 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
+// => { FOO_BAR: 'unicorn', 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
 envDotProp.get('');
-//=> { foo: { bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale' } }
+// => { foo: { bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale' } }
 
 // getter
 envDotProp.get('foo.bar');
-//=> 'unicorn'
+// => 'unicorn'
 
 envDotProp.get('foo.notDefined.deep');
-//=> undefined
+// => undefined
 
 envDotProp.get('foo.notDefined.deep', 'default value');
-//=> 'default value'
+// => 'default value'
 
 envDotProp.get('foo.dot\\.dot');
-//=> 'pony'
+// => 'pony'
 
 // setter
 envDotProp.set('foo.bar', 'b');
 envDotProp.get('foo.bar');
-//=> 'b'
+// => 'b'
 
 envDotProp.get('');
-//=> { foo: { bar: 'b', 'dot.dot': 'pony', und_und: 'whale' } }
+// => { foo: { bar: 'b', 'dot.dot': 'pony', und_und: 'whale' } }
 
 envDotProp.set('foo.baz.e', 'x');
 envDotProp.get('foo.baz.e');
-//=> 'x'
+// => 'x'
 envDotProp.get('foo.baz');
-//=> { e: 'x' }
+// => { e: 'x' }
 
 envDotProp.get('');
-//=> { foo: { bar: 'b', baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' } }
+// => { foo: { bar: 'b', baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' } }
 
 // has
 envDotProp.has('foo.bar');
-//=> true
+// => true
 
 // deleter
 envDotProp.delete('foo.bar');
 envDotProp.get('foo');
-//=> { baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' }
+// => { baz: { e: 'x' }, 'dot.dot': 'pony', und_und: 'whale' }
 
 envDotProp.delete('foo.baz.e');
 envDotProp.get('foo.baz');
-//=> undefined
+// => undefined
 
-envDotProp.set('parse': 42);
+envDotProp.set('parse', 42);
 envDotProp.get('parse');
-//=> '42'
+// => '42'
 envDotProp.get('parse', {parse: true});
-//=> 42
+// => 42
 
 envDotProp.get('');
-//=> { foo: { 'dot.dot': 'pony', und_und: 'whale' }, parse: '42' }
+// => { parse: '42', foo: { 'dot.dot': 'pony', und_und: 'whale' } }
 console.log(process.env);
-//=> { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale' }
+// => { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale', PARSE: '42' }
 ```
 
 ## API
