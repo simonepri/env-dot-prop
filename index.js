@@ -5,8 +5,9 @@ const circularJSON = require('circular-json');
 
 /**
  * Converts a dot-path to an underscore-path.
- * @param  {string} path String separated by dots
- * @return {string} String separated by underscores
+ * @private
+ * @param  {string} path String separated by dots.
+ * @return {string} String separated by underscores.
  */
 function toUnderscore(path) {
   return transform(path, '.', '_');
@@ -14,8 +15,9 @@ function toUnderscore(path) {
 
 /**
  * Converts an underscore-path to a dot-path.
- * @param  {string} env String separated by underscores
- * @return {string} String separated by dots
+ * @private
+ * @param  {string} env String separated by underscores.
+ * @return {string} String separated by dots.
  */
 function toDot(env) {
   return transform(env, '_', '.');
@@ -23,11 +25,14 @@ function toDot(env) {
 
 /**
  * Returns the values of env keys at the path specified.
- * @param  {string} path Dot separated path
+ * @public
+ * @param  {string} path Dot separated path.
  * @param  {string} [defaultValue] Default value to return if there aren't keys in
- * the path provided
- * @param  {object} [opts] Additional options
- * @return {string} The value at the path specified
+ * the path provided.
+ * @param  {object} [opts] Additional options.
+ * @param  {boolean} [opts.parse] If true the value returned is parsed using circular-json.
+ * @return {string} The value at the path specified.
+ * @param  {boolean} [opts.caseSensitive] If true no case conversion is performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function get(path, defaultValue, opts) {
   let obj;
@@ -70,9 +75,12 @@ function get(path, defaultValue, opts) {
 /**
  * Sets an env key at the path specified. If nested keys are present they will
  * be deleted.
- * @param  {string} path Dot separated path
- * @param  {string} value Value to set
- * @param  {object} [opts] Additional options
+ * @public
+ * @param  {string} path Dot separated path.
+ * @param  {string} value Value to set.
+ * @param  {object} [opts] Additional options.
+ * @param  {boolean} [opts.stringify] If true the value passed is stringified using circular-json.
+ * @param  {boolean} [opts.caseSensitive] If true no case conversion is performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function set(path, value, opts) {
   let env = toUnderscore(path);
@@ -87,8 +95,10 @@ function set(path, value, opts) {
 /**
  * Deletes an env key at the path specified. If nested keys are present they will
  * be deleted too.
- * @param  {string} path Dot separated path
- * @param  {object} [opts] Additional options
+ * @public
+ * @param  {string} path Dot separated path.
+ * @param  {object} [opts] Additional options.
+ * @param  {boolean} [opts.caseSensitive] If true no case conversion is performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function del(path, opts) {
   return keys(path, opts)
@@ -99,9 +109,11 @@ function del(path, opts) {
 
 /**
  * Returns whether an env key exists at the path specified.
- * @param  {string} path Dot separated path
- * @param  {object} [opts] Additional options
- * @return {boolean} true if at least an env key with that path exists
+ * @public
+ * @param  {string} path Dot separated path.
+ * @param  {object} [opts] Additional options.
+ * @return {boolean} true if at least an env key with that path exists.
+ * @param  {boolean} [opts.caseSensitive] If true no case conversion is performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function has(path, opts) {
   return keys(path, opts).length > 0;
