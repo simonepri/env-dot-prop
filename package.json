@@ -1,6 +1,6 @@
 {
   "name": "env-dot-prop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get, set, or delete nested properties of process.env using a dot path",
   "main": "index.js",
   "dependencies": {
