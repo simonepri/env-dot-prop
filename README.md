@@ -18,6 +18,8 @@
 
 ## Background
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/simonepri/env-dot-prop.svg)](https://greenkeeper.io/)
+
 This package aim to let you access to your environment variables as if they were JavaScript object.
 See [this guide](https://github.com/simonepri/env-dot-prop/wiki/Create-a-12-factor-compliant-configuration-system) to understand how to use this package to create a [12 Factor compliant](https://12factor.net/config) configuration system for you app.
 
