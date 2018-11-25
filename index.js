@@ -51,7 +51,7 @@ function get(path, defaultValue, opts) {
         dotp = dotp.toLowerCase();
       }
 
-      const val = parse(process.env[key], opts);
+      const val = process.env[key];
       if (dotp === '') {
         obj = val;
       } else {
