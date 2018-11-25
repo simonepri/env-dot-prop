@@ -63,6 +63,12 @@
   },
   "xo": {
     "prettier": true,
-    "space": true
+    "space": true,
+    "rules": {
+      "object-shorthand": "off",
+      "prefer-rest-params": "off",
+      "camelcase": "off",
+      "prefer-destructuring": "off"
+    }
   }
 }
