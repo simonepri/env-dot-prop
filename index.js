@@ -114,7 +114,6 @@ function stringify(val, opts) {
  * @param  {Object} [opts] Additional options.
  * @param  {boolean} [opts.parse=false] If true the value returned is parsed
  * using circular-json.
- * @return {string} The value at the path specified.
  * @param  {boolean} [opts.caseSensitive=false] If true no case conversion will
  * be performed from the dot path provided to the env key search.
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.

@@ -153,11 +153,11 @@ console.log(process.env);
 
 <a name="get"></a>
 
-## get(path, [defaultValue], [opts]) ⇒ <code>string</code> \| <code>any</code>
+## get(path, [defaultValue], [opts]) ⇒ <code>any</code>
 Gets the values of environment variables at the path specified.
 
 **Kind**: global function  
-**Returns**: <code>string</code> - The value at the path specified.<code>any</code> - The values of environment variables associated with the path specified.  
+**Returns**: <code>any</code> - The values of environment variables associated with the path specified.  
 **Access**: public  
 
 | Param | Type | Default | Description |
