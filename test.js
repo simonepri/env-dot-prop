@@ -24,7 +24,7 @@ test('should set the environment variable', t => {
   delete process.env.A_B;
 });
 
-test('should return false if the environment variable doesn\'t exists', t => {
+test("should return false if the environment variable doesn't exists", t => {
   t.is(m.has('a.b'), false);
 });
 
@@ -60,7 +60,10 @@ test('should allow keys containing underscores', t => {
 test('should allow to get non-capitalized env keys', t => {
   process.env.UnIcOrNs_will_RULE_tHe_W0rlD = 'true';
   t.is(m.get('unicorns.will.rule.the.w0rld'), 'true');
-  t.is(m.get('unicorns.will.rule.the.w0rld', {caseSensitive: true}), 'undefined');
+  t.is(
+    m.get('unicorns.will.rule.the.w0rld', {caseSensitive: true}),
+    'undefined'
+  );
   t.is(m.get('UnIcOrNs.will.RULE.tHe.W0rlD', {caseSensitive: true}), 'true');
   delete process.env.UnIcOrNs_will_RULE_tHe_W0rlD;
 });
@@ -79,7 +82,7 @@ test('should parse a number with the parse option', t => {
   delete process.env.test;
 });
 
-test('shouldn\'t parse a string with the parse option', t => {
+test("shouldn't parse a string with the parse option", t => {
   process.env.test = 'hello';
   t.is(m.get('test'), 'hello');
   t.is(m.get('test', {parse: true}), 'hello');
@@ -101,7 +104,7 @@ test('should stringify an object with the stringify option', t => {
   delete process.env.test;
 });
 
-test('shouldn\'t stringify a string with the stringify option', t => {
+test("shouldn't stringify a string with the stringify option", t => {
   m.set('test', 'hello world');
   t.is(m.get('test'), 'hello world');
   m.set('test', 'hello world', {stringify: true});
@@ -117,6 +120,34 @@ test('should stringify a circular object with the stringify option', t => {
   delete process.env.test;
 });
 
+test('should work with the empty string env variable', t => {
+  const env = process.env;
+  process.env = {
+    '': 'test'
+  };
+  t.deepEqual(m.get(''), 'test');
+  process.env = {
+    _a: 'a',
+    _b: 'b'
+  };
+  t.deepEqual(m.get(''), {'': {a: 'a', b: 'b'}});
+  m.set('', 'only this should exists');
+  t.deepEqual(m.get(''), 'only this should exists');
+  process.env = env;
+});
+
+test('should work if some env vars overlap', t => {
+  const env = process.env;
+  process.env = {
+    KEY: 'this must be ignored',
+    KEY_A: 'a',
+    KEY_B: 'b'
+  };
+  t.deepEqual(m.get(''), {key: {a: 'a', b: 'b'}});
+  t.deepEqual(m.get('key'), {a: 'a', b: 'b'});
+  process.env = env;
+});
+
 test('should pass README examples', t => {
   const env = process.env;
   process.env = {
@@ -124,26 +155,39 @@ test('should pass README examples', t => {
     'FOO_DOT.DOT': 'pony',
     'FOO_UND\\_UND': 'whale'
   };
-  t.deepEqual(m.get(''), {foo: {bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale'}});
+  t.deepEqual(m.get(''), {
+    foo: {bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale'}
+  });
   t.is(m.get('foo.bar'), 'unicorn');
   t.is(m.get('foo.notDefined.deep'), 'undefined');
   t.is(m.get('foo.notDefined.deep', 'default value'), 'default value');
   t.is(m.get('foo.dot\\.dot'), 'pony');
   m.set('foo.bar', 'b');
   t.is(m.get('foo.bar'), 'b');
-  t.deepEqual(m.get(''), {foo: {bar: 'b', 'dot.dot': 'pony', und_und: 'whale'}});
+  t.deepEqual(m.get(''), {
+    foo: {bar: 'b', 'dot.dot': 'pony', und_und: 'whale'}
+  });
   m.set('foo.baz.e', 'x');
   t.is(m.get('foo.baz.e'), 'x');
   t.deepEqual(m.get('foo.baz'), {e: 'x'});
-  t.deepEqual(m.get(''), {foo: {bar: 'b', baz: {e: 'x'}, 'dot.dot': 'pony', und_und: 'whale'}});
+  t.deepEqual(m.get(''), {
+    foo: {bar: 'b', baz: {e: 'x'}, 'dot.dot': 'pony', und_und: 'whale'}
+  });
   t.is(m.has('foo.bar'), true);
   m.delete('foo.bar');
-  t.deepEqual(m.get('foo'), {baz: {e: 'x'}, 'dot.dot': 'pony', und_und: 'whale'});
+  t.deepEqual(m.get('foo'), {
+    baz: {e: 'x'},
+    'dot.dot': 'pony',
+    und_und: 'whale'
+  });
   m.delete('foo.baz.e');
   t.is(m.get('foo.baz'), 'undefined');
   m.set('parse', 42);
   t.is(m.get('parse'), '42');
   t.is(m.get('parse', {parse: true}), 42);
-  t.deepEqual(m.get(''), {foo: {'dot.dot': 'pony', und_und: 'whale'}, parse: '42'});
+  t.deepEqual(m.get(''), {
+    foo: {'dot.dot': 'pony', und_und: 'whale'},
+    parse: '42'
+  });
   process.env = env;
 });
