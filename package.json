@@ -1,30 +1,18 @@
 {
-  "name": "env-dot-prop",
   "version": "1.0.2",
+  "name": "env-dot-prop",
   "description": "Get, set, or delete nested properties of process.env using a dot path",
-  "main": "index.js",
-  "dependencies": {
-    "circular-json": "^0.4.0",
-    "dot-prop": "^4.2.0"
+  "license": "MIT",
+  "homepage": "https://github.com/simonepri/env-dot-prop#readme",
+  "repository": "github:simonepri/env-dot-prop",
+  "bugs": {
+    "url": "https://github.com/simonepri/env-dot-prop/issues",
+    "email": "simonepri@outlook.com"
   },
-  "devDependencies": {
-    "ava": "^0.23.0",
-    "codecov": "^3.0.0",
-    "nyc": "^11.3.0",
-    "xo": "^0.19.0"
-  },
-  "scripts": {
-    "test": "xo && ava",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simonepri/env-dot-prop.git"
-  },
-  "author": {
-    "name": "Simone Primarosa",
-    "email": "simone.pri@hotmail.it"
-  },
+  "author": "Simone Primarosa <simonepri@outlook.com> (https://simoneprimarosa.com)",
+  "contributors": [
+    "Simone Primarosa <simonepri@outlook.com> (https://simoneprimarosa.com)"
+  ],
   "keywords": [
     "env-dot-prop",
     "dot-prop",
@@ -41,29 +29,40 @@
     "env",
     "environment"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/simonepri/env-dot-prop/issues"
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=4"
   },
-  "homepage": "https://github.com/simonepri/env-dot-prop#readme",
-  "xo": {
-    "space": true,
-    "overrides": [
-      {
-        "files": "index.js",
-        "esnext": false
-      },
-      {
-        "files": "test.js",
-        "rules": {
-          "camelcase": [
-            "error",
-            {
-              "properties": "never"
-            }
-          ]
-        }
-      }
+  "scripts": {
+    "test": "xo &&nyc ava",
+    "release": "np",
+    "update": "npm-check -u"
+  },
+  "dependencies": {
+    "circular-json": "^0.4.0",
+    "dot-prop": "^4.2.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "np": "*",
+    "npm-check": "*",
+    "nyc": "*",
+    "xo": "*"
+  },
+  "ava": {
+    "verbose": true
+  },
+  "nyc": {
+    "reporter": [
+      "lcovonly",
+      "text"
     ]
+  },
+  "xo": {
+    "prettier": true,
+    "space": true
   }
 }
