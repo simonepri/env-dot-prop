@@ -42,7 +42,7 @@
     "update": "npm-check -u"
   },
   "dependencies": {
-    "circular-json": "^0.4.0",
+    "circular-json": "^0.5.9",
     "dot-prop": "^4.2.0"
   },
   "devDependencies": {
