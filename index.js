@@ -1,7 +1,7 @@
 'use strict';
 
 const dotProp = require('dot-prop');
-const circularJSON = require('circular-json');
+const flatted = require('flatted');
 
 /**
  * Replace a character in the string provided taking care of the escaped chars.
@@ -77,9 +77,13 @@ function parse(str, opts) {
   let ret;
   if (opts && opts.parse) {
     try {
-      ret = circularJSON.parse(str);
-    } catch (error) {
-      ret = String(str);
+      ret = flatted.parse(str);
+    } catch (flattedError) {
+      try {
+        ret = JSON.parse(str);
+      } catch (jsonError) {
+        ret = String(str);
+      }
     }
   } else {
     ret = String(str);
@@ -95,7 +99,7 @@ function stringify(val, opts) {
   let ret;
   if (opts && opts.stringify) {
     try {
-      ret = circularJSON.stringify(val);
+      ret = flatted.stringify(val);
     } catch (error) {
       ret = String(val);
     }
@@ -113,7 +117,7 @@ function stringify(val, opts) {
  * not any environment variable that matches the path provided.
  * @param  {Object} [opts] Additional options.
  * @param  {boolean} [opts.parse=false] If true the value returned is parsed
- * using circular-json.
+ * using flatted.
  * @param  {boolean} [opts.caseSensitive=false] If true no case conversion will
  * be performed from the dot path provided to the env key search.
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
@@ -164,7 +168,7 @@ function get(path, defaultValue, opts) {
  * @param  {string} path Dot separated path.
  * @param  {string} value Value to set.
  * @param  {object} [opts] Additional options.
- * @param  {boolean} [opts.stringify=false] If true the value passed is stringified using circular-json.
+ * @param  {boolean} [opts.stringify=false] If true the value passed is stringified using flatted.
  * @param  {boolean} [opts.caseSensitive=false] If true no case conversion is
  * performed from the dot path provided to the env key search.
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.

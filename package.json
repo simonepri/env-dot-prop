@@ -42,8 +42,8 @@
     "update": "npm-check -u"
   },
   "dependencies": {
-    "circular-json": "^0.5.9",
-    "dot-prop": "^4.2.0"
+    "dot-prop": "^4.2.0",
+    "flatted": "^2.0.0"
   },
   "devDependencies": {
     "ava": "*",
