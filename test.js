@@ -116,7 +116,7 @@ test('should stringify a circular object with the stringify option', t => {
   const a = {b: 5};
   a.a = a;
   m.set('test', a, {stringify: true});
-  t.deepEqual(m.get('test'), '{"b":5,"a":"~"}');
+  t.deepEqual(m.get('test'), '[{"b":5,"a":"0"}]');
   delete process.env.test;
 });
 
