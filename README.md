@@ -49,8 +49,8 @@
   <br/>
 
   <!-- Version - npm -->
-  <a href="https://www.npmjs.com/package/@phc/scrypt">
-    <img src="https://img.shields.io/npm/v/@phc/scrypt.svg" alt="Latest version on npm" />
+  <a href="https://www.npmjs.com/package/env-dot-prop">
+    <img src="https://img.shields.io/npm/v/env-dot-prop.svg" alt="Latest version on npm" />
   </a>
   <!-- License - MIT -->
   <a href="https://github.com/simonepri/env-dot-prop/tree/master/license">
