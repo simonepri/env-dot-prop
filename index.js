@@ -135,8 +135,7 @@ function get(path, defaultValue, opts) {
       if (!opts || !opts.caseSensitive) {
         dotp = dotp.toLowerCase();
       }
-
-      const val = process.env[key];
+      const val = parse(process.env[key], opts);
       if (dotp === '') {
         obj = val;
       } else {
@@ -152,9 +151,9 @@ function get(path, defaultValue, opts) {
     prefix = prefix.toLowerCase();
   }
   if (path === '') {
-    return parse(obj, opts);
+    return obj;
   }
-  return parse(dotProp.get(obj, prefix, defaultValue), opts);
+  return dotProp.get(obj, prefix, defaultValue);
 }
 
 /**
