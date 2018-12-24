@@ -107,8 +107,8 @@ function stringify(val, opts) {
  * @param  {any} [defaultValue=undefined] Default value to return if there is
  * not any environment variable that matches the path provided.
  * @param  {Object} [opts] Additional options.
- * @param  {boolean} [opts.parse=false] If true the value returned is parsed
- * using circular-json.
+ * @param  {boolean} [opts.parse=false] If true the value retrieved is converted
+ * to the proper type.
  * @param  {boolean} [opts.caseSensitive=false] If true no case conversion will
  * be performed from the dot path provided to the env key search.
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
@@ -160,7 +160,8 @@ function get(path, defaultValue, opts) {
  * @param  {string} path Dot separated path.
  * @param  {string} value Value to set.
  * @param  {object} [opts] Additional options.
- * @param  {boolean} [opts.stringify=false] If true the value passed is stringified using circular-json.
+ * @param  {boolean} [opts.stringify=false] If true the value provided is
+ * converted to string.
  * @param  {boolean} [opts.caseSensitive=false] If true no case conversion is
  * performed from the dot path provided to the env key search.
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.

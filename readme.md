@@ -179,7 +179,7 @@ Gets the values of environment variables at the path specified.
 | path | <code>string</code> |  | Dot separated path. |
 | [defaultValue] | <code>any</code> |  | Default value to return if there is not any environment variable that matches the path provided. |
 | [opts] | <code>Object</code> |  | Additional options. |
-| [opts.parse] | <code>boolean</code> | <code>false</code> | If true the value returned is parsed using circular-json. |
+| [opts.parse] | <code>boolean</code> | <code>false</code> | If true the value retrieved is converted to the proper type. |
 | [opts.caseSensitive] | <code>boolean</code> | <code>false</code> | If true no case conversion will be performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY. |
 
 <a name="set"></a>
@@ -196,7 +196,7 @@ be deleted.
 | path | <code>string</code> |  | Dot separated path. |
 | value | <code>string</code> |  | Value to set. |
 | [opts] | <code>object</code> |  | Additional options. |
-| [opts.stringify] | <code>boolean</code> | <code>false</code> | If true the value passed is stringified using circular-json. |
+| [opts.stringify] | <code>boolean</code> | <code>false</code> | If true the value provided is converted to string. |
 | [opts.caseSensitive] | <code>boolean</code> | <code>false</code> | If true no case conversion is performed from the dot path provided to the env key search. Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY. |
 
 <a name="del"></a>
