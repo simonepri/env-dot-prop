@@ -1,7 +1,6 @@
 'use strict';
 
 const dotProp = require('dot-prop');
-const circularJSON = require('circular-json');
 
 /**
  * Replace a character in the string provided taking care of the escaped chars.
@@ -60,7 +59,7 @@ function toDot(env) {
 function keys(path, opts) {
   let env = toUnderscore(path);
 
-  if (!opts || !opts.caseSensitive) {
+  if (!opts.caseSensitive) {
     env = env.toUpperCase();
     return Object.keys(process.env).filter(key =>
       key.toUpperCase().startsWith(env)
@@ -70,39 +69,35 @@ function keys(path, opts) {
 }
 
 function parse(str, opts) {
-  if (typeof str !== 'string') {
+  if (typeof str !== 'string' || !opts.parse) {
     return str;
   }
 
-  let ret;
-  if (opts && opts.parse) {
-    try {
-      ret = circularJSON.parse(str);
-    } catch (error) {
-      ret = String(str);
-    }
-  } else {
-    ret = String(str);
+  if (/^\s*undefined\s*$/.test(str)) {
+    return undefined;
   }
-  return ret;
-}
 
-function stringify(val, opts) {
-  if (typeof val === 'string') {
+  const val = Number(str);
+  if (!isNaN(val) || /^\s*NaN\s*$/.test(str)) {
     return val;
   }
 
-  let ret;
-  if (opts && opts.stringify) {
-    try {
-      ret = circularJSON.stringify(val);
-    } catch (error) {
-      ret = String(val);
-    }
-  } else {
-    ret = String(val);
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    return str;
   }
-  return ret;
+}
+
+function stringify(val, opts) {
+  if (typeof val === 'string' || !opts.stringify) {
+    return val;
+  }
+  if (typeof val === 'object') {
+    return JSON.stringify(val);
+  }
+
+  return String(val);
 }
 
 /**
@@ -125,6 +120,8 @@ function get(path, defaultValue, opts) {
   path = args.shift();
   if (typeof args[args.length - 1] === 'object') {
     opts = args.pop();
+  } else {
+    opts = {};
   }
   defaultValue = args.pop();
 
@@ -132,7 +129,7 @@ function get(path, defaultValue, opts) {
     .sort((a, b) => a.length - b.length)
     .forEach(key => {
       let dotp = toDot(key, opts);
-      if (!opts || !opts.caseSensitive) {
+      if (!opts.caseSensitive) {
         dotp = dotp.toLowerCase();
       }
       const val = parse(process.env[key], opts);
@@ -147,7 +144,7 @@ function get(path, defaultValue, opts) {
     });
 
   let prefix = path;
-  if (!opts || !opts.caseSensitive) {
+  if (!opts.caseSensitive) {
     prefix = prefix.toLowerCase();
   }
   if (path === '') {
@@ -169,8 +166,12 @@ function get(path, defaultValue, opts) {
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function set(path, value, opts) {
+  if (typeof opts === 'undefined') {
+    opts = {};
+  }
+
   let env = toUnderscore(path);
-  if (!opts || !opts.caseSensitive) {
+  if (!opts.caseSensitive) {
     env = env.toUpperCase();
   }
 
@@ -189,6 +190,10 @@ function set(path, value, opts) {
  * Eg: 'tesT.kEy' will look for tesT_kEy environment variable instead of TEST_KEY.
  */
 function del(path, opts) {
+  if (typeof opts === 'undefined') {
+    opts = {};
+  }
+
   keys(path, opts).forEach(key => delete process.env[key]);
 }
 
@@ -204,6 +209,10 @@ function del(path, opts) {
  * path prefix.
  */
 function has(path, opts) {
+  if (typeof opts === 'undefined') {
+    opts = {};
+  }
+
   return keys(path, opts).length > 0;
 }
 

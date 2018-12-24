@@ -1,127 +1,291 @@
 import test from 'ava';
 import m from '.';
 
-test('should return an object for nested envs', t => {
-  process.env.TEST_ONE = 5;
+test.beforeEach(t => {
+  t.context.env = Object.assign({}, process.env);
+  process.env = {};
+});
+
+test.afterEach(t => {
+  process.env = t.context.env;
+});
+
+test.serial('should get the envs correctly when parse is enabled', t => {
+  process.env.TEST = 5;
+  t.is(m.get('test', {parse: true}), 5);
+  process.env.TEST = 0.5;
+  t.is(m.get('test', {parse: true}), 0.5);
+  process.env.TEST = true;
+  t.is(m.get('test', {parse: true}), true);
+  process.env.TEST = Infinity;
+  t.is(m.get('test', {parse: true}), Infinity);
+  process.env.TEST = -Infinity;
+  t.is(m.get('test', {parse: true}), -Infinity);
+  process.env.TEST = undefined;
+  t.is(m.get('test', {parse: true}), undefined);
+  process.env.TEST = null;
+  t.is(m.get('test', {parse: true}), null);
+  process.env.TEST = NaN;
+  t.is(m.get('test', {parse: true}), NaN);
+  process.env.TEST = [];
+  t.deepEqual(m.get('test', {parse: true}), []);
+  process.env.TEST = [1, '2', {a: 3, b: 4}, true, null];
+  t.deepEqual(m.get('test', {parse: true}), [1, '2', {a: 3, b: 4}, true, null]);
+  process.env.TEST = {};
+  t.deepEqual(m.get('test', {parse: true}), {});
+  process.env.TEST = {a: 42};
+  t.deepEqual(m.get('test', {parse: true}), {a: 42});
+  const a = {b: 5};
+  a.a = a;
+  process.env.TEST = a;
+  t.deepEqual(m.get('test', {parse: true}), a);
+
+  process.env.TEST = '5';
+  t.is(m.get('test', {parse: true}), 5);
+  process.env.TEST = '0.5';
+  t.is(m.get('test', {parse: true}), 0.5);
+  process.env.TEST = 'true';
+  t.is(m.get('test', {parse: true}), true);
+  process.env.TEST = 'Infinity';
+  t.is(m.get('test', {parse: true}), Infinity);
+  process.env.TEST = '-Infinity';
+  t.is(m.get('test', {parse: true}), -Infinity);
+  process.env.TEST = 'undefined';
+  t.is(m.get('test', {parse: true}), undefined);
+  process.env.TEST = 'null';
+  t.is(m.get('test', {parse: true}), null);
+  process.env.TEST = 'NaN';
+  t.is(m.get('test', {parse: true}), NaN);
+  process.env.TEST = '[]';
+  t.deepEqual(m.get('test', {parse: true}), []);
+  process.env.TEST = '[1,"2",{"a":3,"b":4},true,null]';
+  t.deepEqual(m.get('test', {parse: true}), [1, '2', {a: 3, b: 4}, true, null]);
+  process.env.TEST = '{}';
+  t.deepEqual(m.get('test', {parse: true}), {});
+  process.env.TEST = '{"a":42}';
+  t.deepEqual(m.get('test', {parse: true}), {a: 42});
+  process.env.TEST = '}{';
+  t.deepEqual(m.get('test', {parse: true}), '}{');
+});
+
+test.serial('should set the envs correctly when stringify is enabled', t => {
+  m.set('test', 5, {stringify: true});
+  t.is(process.env.TEST, '5');
+  m.set('test', 0.5, {stringify: true});
+  t.is(process.env.TEST, '0.5');
+  m.set('test', true, {stringify: true});
+  t.is(process.env.TEST, 'true');
+  m.set('test', Infinity, {stringify: true});
+  t.is(process.env.TEST, 'Infinity');
+  m.set('test', -Infinity, {stringify: true});
+  t.is(process.env.TEST, '-Infinity');
+  m.set('test', undefined, {stringify: true});
+  t.is(process.env.TEST, 'undefined');
+  m.set('test', null, {stringify: true});
+  t.is(process.env.TEST, 'null');
+  m.set('test', NaN, {stringify: true});
+  t.is(process.env.TEST, 'NaN');
+  m.set('test', {}, {stringify: true});
+  t.is(process.env.TEST, '{}');
+  m.set('test', {a: 42}, {stringify: true});
+  t.is(process.env.TEST, '{"a":42}');
+  m.set('test', [], {stringify: true});
+  t.is(process.env.TEST, '[]');
+  m.set('test', [1, '2', {a: 3, b: 4}, true, null], {stringify: true});
+  t.is(process.env.TEST, '[1,"2",{"a":3,"b":4},true,null]');
+
+  m.set('test', '5', {stringify: true});
+  t.is(process.env.TEST, '5');
+  m.set('test', '0.5', {stringify: true});
+  t.is(process.env.TEST, '0.5');
+  m.set('test', 'Infinity', {stringify: true});
+  t.is(process.env.TEST, 'Infinity');
+  m.set('test', '-Infinity', {stringify: true});
+  t.is(process.env.TEST, '-Infinity');
+  m.set('test', 'undefined', {stringify: true});
+  t.is(process.env.TEST, 'undefined');
+  m.set('test', 'null', {stringify: true});
+  t.is(process.env.TEST, 'null');
+  m.set('test', 'NaN', {stringify: true});
+  t.is(process.env.TEST, 'NaN');
+  m.set('test', '{}', {stringify: true});
+  t.is(process.env.TEST, '{}');
+  m.set('test', '{"a":42}', {stringify: true});
+  t.is(process.env.TEST, '{"a":42}');
+  m.set('test', '[]', {stringify: true});
+  t.is(process.env.TEST, '[]');
+  m.set('test', '[1,"2",{"a":3,"b":4},true,null]', {stringify: true});
+  t.is(process.env.TEST, '[1,"2",{"a":3,"b":4},true,null]');
+
+  const a = {b: 5};
+  a.a = a;
+  t.throws(() => m.set('test', a, {stringify: true}));
+});
+
+test.serial('should get the envs correctly when parse is disabled', t => {
+  process.env.TEST = 5;
+  t.is(m.get('test', {parse: false}), 5);
+  process.env.TEST = 0.5;
+  t.is(m.get('test', {parse: false}), 0.5);
+  process.env.TEST = true;
+  t.is(m.get('test', {parse: false}), true);
+  process.env.TEST = Infinity;
+  t.is(m.get('test', {parse: false}), Infinity);
+  process.env.TEST = -Infinity;
+  t.is(m.get('test', {parse: false}), -Infinity);
+  process.env.TEST = undefined;
+  t.is(m.get('test', {parse: false}), undefined);
+  process.env.TEST = null;
+  t.is(m.get('test', {parse: false}), null);
+  process.env.TEST = NaN;
+  t.is(m.get('test', {parse: false}), NaN);
+  process.env.TEST = [];
+  t.deepEqual(m.get('test', {parse: false}), []);
+  process.env.TEST = [1, '2', {a: 3, b: 4}, true, null];
+  t.deepEqual(m.get('test', {parse: false}), [
+    1,
+    '2',
+    {a: 3, b: 4},
+    true,
+    null
+  ]);
+  process.env.TEST = {};
+  t.deepEqual(m.get('test', {parse: false}), {});
+  process.env.TEST = {a: 42};
+  t.deepEqual(m.get('test', {parse: false}), {a: 42});
+  const a = {b: 5};
+  a.a = a;
+  process.env.TEST = a;
+  t.deepEqual(m.get('test', {parse: false}), a);
+
+  process.env.TEST = '5';
+  t.is(m.get('test', {parse: false}), '5');
+  process.env.TEST = '0.5';
+  t.is(m.get('test', {parse: false}), '0.5');
+  process.env.TEST = 'true';
+  t.is(m.get('test', {parse: false}), 'true');
+  process.env.TEST = 'Infinity';
+  t.is(m.get('test', {parse: false}), 'Infinity');
+  process.env.TEST = '-Infinity';
+  t.is(m.get('test', {parse: false}), '-Infinity');
+  process.env.TEST = 'undefined';
+  t.is(m.get('test', {parse: false}), 'undefined');
+  process.env.TEST = 'null';
+  t.is(m.get('test', {parse: false}), 'null');
+  process.env.TEST = 'NaN';
+  t.is(m.get('test', {parse: false}), 'NaN');
+  process.env.TEST = '[]';
+  t.deepEqual(m.get('test', {parse: false}), '[]');
+  process.env.TEST = '[1,"2",{"a":3,"b":4},true,null]';
+  t.deepEqual(m.get('test', {parse: false}), '[1,"2",{"a":3,"b":4},true,null]');
+  process.env.TEST = '{}';
+  t.deepEqual(m.get('test', {parse: false}), '{}');
+  process.env.TEST = '{"a":42}';
+  t.deepEqual(m.get('test', {parse: false}), '{"a":42}');
+});
+
+test.serial('should set the envs correctly when stringify is disabled', t => {
+  m.set('test', 5, {stringify: false});
+  t.is(process.env.TEST, 5);
+  m.set('test', 0.5, {stringify: false});
+  t.is(process.env.TEST, 0.5);
+  m.set('test', Infinity, {stringify: false});
+  t.is(process.env.TEST, Infinity);
+  m.set('test', -Infinity, {stringify: false});
+  t.is(process.env.TEST, -Infinity);
+  m.set('test', undefined, {stringify: false});
+  t.is(process.env.TEST, undefined);
+  m.set('test', NaN, {stringify: false});
+  t.is(process.env.TEST, NaN);
+  m.set('test', [], {stringify: false});
+  t.deepEqual(process.env.TEST, []);
+  m.set('test', [1, '2', {a: 3, b: 4}, true, null], {stringify: false});
+  t.deepEqual(process.env.TEST, [1, '2', {a: 3, b: 4}, true, null]);
+
+  m.set('test', '5', {stringify: false});
+  t.is(process.env.TEST, '5');
+  m.set('test', '0.5', {stringify: false});
+  t.is(process.env.TEST, '0.5');
+  m.set('test', 'Infinity', {stringify: false});
+  t.is(process.env.TEST, 'Infinity');
+  m.set('test', '-Infinity', {stringify: false});
+  t.is(process.env.TEST, '-Infinity');
+  m.set('test', 'undefined', {stringify: false});
+  t.is(process.env.TEST, 'undefined');
+  m.set('test', 'NaN', {stringify: false});
+  t.is(process.env.TEST, 'NaN');
+  m.set('test', '[]', {stringify: false});
+  t.is(process.env.TEST, '[]');
+  m.set('test', '[1,"2",{"a":3,"b":4},true,null]', {stringify: false});
+  t.is(process.env.TEST, '[1,"2",{"a":3,"b":4},true,null]');
+
+  const a = {b: 5};
+  a.a = a;
+  m.set('test', a, {stringify: false});
+  t.deepEqual(process.env.TEST, a);
+});
+
+test.serial('should return an object for nested envs', t => {
+  process.env.TEST_ONE = '5';
   t.is(typeof m.get('test'), 'object');
-  t.is(m.get('test').one, '5');
-  delete process.env.TEST_ONE;
+  t.is(m.get('test', {parse: false}).one, '5');
 });
 
-test('should return a value for full env path', t => {
-  process.env.TEST_ONE = 5;
-  t.is(m.get('test.one'), '5');
-  delete process.env.TEST_ONE;
+test.serial('should return a value for full env path', t => {
+  process.env.TEST_ONE = '5';
+  t.is(m.get('test.one', {parse: false}), '5');
 });
 
-test('should return the default value', t => {
-  t.is(m.get('a.b', 0), '0');
+test.serial('should return the default value', t => {
+  t.is(m.get('i.n.v.a.l.i.d', 42), 42);
+  t.deepEqual(m.get('i.n.v.a.l.i.d', {a: 1}, {}), {a: 1});
+  t.deepEqual(m.get('i.n.v.a.l.i.d', {}), undefined);
 });
 
-test('should set the environment variable', t => {
-  m.set('a.b', 0);
-  t.is(process.env.A_B, '0');
-  delete process.env.A_B;
+test.serial(
+  "should return false if the environment variable doesn't exists",
+  t => {
+    t.is(m.has('i.n.v.a.l.i.d'), false);
+  }
+);
+
+test.serial('should return true if the environment variable exists', t => {
+  m.set('v.a.l.i.d', false);
+  t.is(m.has('v.a.l.i.d'), true);
 });
 
-test("should return false if the environment variable doesn't exists", t => {
-  t.is(m.has('a.b'), false);
-});
-
-test('should return true if the environment variable exists', t => {
-  m.set('key', false);
-  t.is(m.has('key'), true);
-  delete process.env.A_B;
-});
-
-test('should delete existing environment variable', t => {
-  process.env.EXISTING_KEY = 0;
+test.serial('should delete existing environment variable', t => {
+  process.env.EXISTING_KEY = '0';
   m.delete('existing.key');
   t.is(process.env.EXISTING_KEY, undefined);
 });
 
-test('should delete inexistent environment variable', t => {
+test.serial('should delete inexistent environment variable', t => {
   m.delete('inexistent.key');
   t.is(process.env.INEXISTING_KEY, undefined);
 });
 
-test('should allow keys containing dots', t => {
+test.serial('should allow keys containing dots', t => {
   process.env['..'] = 'ciao';
   t.is(m.get('\\.\\.'), 'ciao');
-  delete process.env['..'];
 });
 
-test('should allow keys containing underscores', t => {
+test.serial('should allow keys containing underscores', t => {
   process.env['\\_\\_'] = 'hola';
   t.is(m.get('__'), 'hola');
-  delete process.env['\\_\\_'];
 });
 
-test('should allow to get non-capitalized env keys', t => {
+test.serial('should allow to get non-capitalized env keys', t => {
   process.env.UnIcOrNs_will_RULE_tHe_W0rlD = 'true';
-  t.is(m.get('unicorns.will.rule.the.w0rld'), 'true');
+  t.is(m.get('unicorns.will.rule.the.w0rld', {parse: false}), 'true');
+  t.is(m.get('unicorns.will.rule.the.w0rld', {caseSensitive: true}), undefined);
   t.is(
-    m.get('unicorns.will.rule.the.w0rld', {caseSensitive: true}),
-    'undefined'
+    m.get('UnIcOrNs.will.RULE.tHe.W0rlD', {caseSensitive: true, parse: false}),
+    'true'
   );
-  t.is(m.get('UnIcOrNs.will.RULE.tHe.W0rlD', {caseSensitive: true}), 'true');
-  delete process.env.UnIcOrNs_will_RULE_tHe_W0rlD;
 });
 
-test('should parse a boolean with the parse option', t => {
-  process.env.test = 'true';
-  t.is(m.get('test'), 'true');
-  t.is(m.get('test', {parse: true}), true);
-  delete process.env.test;
-});
-
-test('should parse a number with the parse option', t => {
-  process.env.test = '5';
-  t.is(m.get('test'), '5');
-  t.is(m.get('test', {parse: true}), 5);
-  delete process.env.test;
-});
-
-test("shouldn't parse a string with the parse option", t => {
-  process.env.test = 'hello';
-  t.is(m.get('test'), 'hello');
-  t.is(m.get('test', {parse: true}), 'hello');
-  delete process.env.test;
-});
-
-test('should parse an object with the parse option', t => {
-  process.env.test = '{"hero": "superman"}';
-  t.is(m.get('test'), '{"hero": "superman"}');
-  t.is(m.get('test', {parse: true}).hero, 'superman');
-  delete process.env.test;
-});
-
-test('should stringify an object with the stringify option', t => {
-  m.set('test', {value: 42});
-  t.is(m.get('test', {parse: true}), '[object Object]');
-  m.set('test', {value: 42}, {stringify: true});
-  t.deepEqual(m.get('test', {parse: true}), {value: 42});
-  delete process.env.test;
-});
-
-test("shouldn't stringify a string with the stringify option", t => {
-  m.set('test', 'hello world');
-  t.is(m.get('test'), 'hello world');
-  m.set('test', 'hello world', {stringify: true});
-  t.deepEqual(m.get('test'), 'hello world');
-  delete process.env.test;
-});
-
-test('should stringify a circular object with the stringify option', t => {
-  const a = {b: 5};
-  a.a = a;
-  m.set('test', a, {stringify: true});
-  t.deepEqual(m.get('test'), '{"b":5,"a":"~"}');
-  delete process.env.test;
-});
-
-test('should work with the empty string env variable', t => {
-  const env = process.env;
+test.serial('should work with the empty string env variable', t => {
   process.env = {
     '': 'test'
   };
@@ -133,11 +297,9 @@ test('should work with the empty string env variable', t => {
   t.deepEqual(m.get(''), {'': {a: 'a', b: 'b'}});
   m.set('', 'only this should exists');
   t.deepEqual(m.get(''), 'only this should exists');
-  process.env = env;
 });
 
-test('should work if some env vars overlap', t => {
-  const env = process.env;
+test.serial('should work if some env vars overlap', t => {
   process.env = {
     KEY: 'this must be ignored',
     KEY_A: 'a',
@@ -145,11 +307,9 @@ test('should work if some env vars overlap', t => {
   };
   t.deepEqual(m.get(''), {key: {a: 'a', b: 'b'}});
   t.deepEqual(m.get('key'), {a: 'a', b: 'b'});
-  process.env = env;
 });
 
-test('should pass README examples', t => {
-  const env = process.env;
+test.serial('should pass README examples', t => {
   process.env = {
     FOO_BAR: 'unicorn',
     'FOO_DOT.DOT': 'pony',
@@ -159,7 +319,7 @@ test('should pass README examples', t => {
     foo: {bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale'}
   });
   t.is(m.get('foo.bar'), 'unicorn');
-  t.is(m.get('foo.notDefined.deep'), 'undefined');
+  t.is(m.get('foo.notDefined.deep'), undefined);
   t.is(m.get('foo.notDefined.deep', 'default value'), 'default value');
   t.is(m.get('foo.dot\\.dot'), 'pony');
   m.set('foo.bar', 'b');
@@ -181,13 +341,22 @@ test('should pass README examples', t => {
     und_und: 'whale'
   });
   m.delete('foo.baz.e');
-  t.is(m.get('foo.baz'), 'undefined');
-  m.set('parse', 42);
-  t.is(m.get('parse'), '42');
-  t.is(m.get('parse', {parse: true}), 42);
+  t.is(m.get('foo.baz'), undefined);
+  m.set('n2', 42, {stringify: false});
+  t.is(m.get('n2', {parse: false}), 42);
+  t.is(m.get('n2', {parse: true}), 42);
+  m.set('n1', 42, {stringify: true});
+  t.is(m.get('n1', {parse: false}), '42');
+  t.is(m.get('n1', {parse: true}), 42);
+  m.set('n3', 42);
+  t.is(m.get('n3'), 42);
+  m.set('n4', '42');
+  t.is(m.get('n4'), '42');
   t.deepEqual(m.get(''), {
     foo: {'dot.dot': 'pony', und_und: 'whale'},
-    parse: '42'
+    n1: '42',
+    n2: 42,
+    n3: 42,
+    n4: '42'
   });
-  process.env = env;
 });

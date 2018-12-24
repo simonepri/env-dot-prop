@@ -137,16 +137,30 @@ envDotProp.delete('foo.baz.e');
 envDotProp.get('foo.baz');
 // => undefined
 
-envDotProp.set('parse', 42);
-envDotProp.get('parse');
-// => '42'
-envDotProp.get('parse', {parse: true});
+envDotProp.set('n1', 42, {stringify: false});
+envDotProp.get('n1', {parse: false});
+// => 42
+envDotProp.get('n1', {parse: true});
 // => 42
 
+envDotProp.set('n2', 42, {stringify: true});
+envDotProp.get('n2', {parse: false});
+// => '42'
+envDotProp.get('n2', {parse: true});
+// => 42
+
+envDotProp.set('n3', 42);
+envDotProp.get('n3');
+// => 42
+
+envDotProp.set('n4', '42');
+envDotProp.get('n4');
+// => '42'
+
 envDotProp.get('');
-// => { parse: '42', foo: { 'dot.dot': 'pony', und_und: 'whale' } }
+// => { n1: '42', n1: 42, n3: 42, n4: '42', foo: { 'dot.dot': 'pony', und_und: 'whale' } }
 console.log(process.env);
-// => { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale', PARSE: '42' }
+// => { 'FOO_DOT.DOT': 'pony', 'FOO_UND\_UND': 'whale', N1: '42', N2: 42, N3: 42, N4: '42' }
 ```
 
 ## API
