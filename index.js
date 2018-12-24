@@ -126,7 +126,7 @@ function get(path, defaultValue, opts) {
   if (typeof args[args.length - 1] === 'object') {
     opts = args.pop();
   }
-  defaultValue = stringify(args.pop());
+  defaultValue = args.pop();
 
   keys(path, opts)
     .sort((a, b) => a.length - b.length)
