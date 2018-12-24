@@ -242,11 +242,11 @@ This project is licensed under the MIT License - see the [license][license] file
 
 
 <!-- Links -->
-[start]: https://github.com/simonepri/end-dot-prop#start-of-content
-[new issue]: https://github.com/simonepri/end-dot-prop/issues/new
-[contributors]: https://github.com/simonepri/end-dot-prop/contributors
+[start]: https://github.com/simonepri/env-dot-prop#start-of-content
+[new issue]: https://github.com/simonepri/env-dot-prop/issues/new
+[contributors]: https://github.com/simonepri/env-dot-prop/contributors
 
-[license]: https://github.com/simonepri/end-dot-prop/tree/master/license
+[license]: https://github.com/simonepri/env-dot-prop/tree/master/license
 
 [github:simonepri]: https://github.com/simonepri
 [twitter:simoneprimarosa]: http://twitter.com/intent/user?screen_name=simoneprimarosa
