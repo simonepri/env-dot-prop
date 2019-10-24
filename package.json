@@ -42,7 +42,7 @@
     "update": "npm-check -u"
   },
   "dependencies": {
-    "dot-prop": "^4.2.0"
+    "dot-prop": "^5.1.1"
   },
   "devDependencies": {
     "ava": "*",
