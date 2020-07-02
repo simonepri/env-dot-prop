@@ -14,6 +14,10 @@
   <a href="https://github.com/simonepri/env-dot-prop/tree/master/license">
     <img src="https://img.shields.io/github/license/simonepri/env-dot-prop.svg" alt="Project license" />
   </a>
+  <!-- Awesome - Node -->
+  <a href="https://github.com/sindresorhus/awesome-nodejs">
+    <img src="https://awesome.re/mentioned-badge.svg" alt="Awesome project" />
+  </a>
 
   <br/>
 
