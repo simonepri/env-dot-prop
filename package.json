@@ -37,19 +37,18 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo &&nyc ava",
-    "release": "np",
-    "update": "npm-check -u"
+    "lint": "xo",
+    "test": "nyc ava",
+    "release": "npx np",
+    "update": "npx npm-check -u"
   },
   "dependencies": {
     "dot-prop": "^4.2.0"
   },
   "devDependencies": {
-    "ava": "*",
-    "np": "*",
-    "npm-check": "*",
-    "nyc": "*",
-    "xo": "*"
+    "ava": "~0.25.0",
+    "nyc": "^11.6.0",
+    "xo": "~0.20.3"
   },
   "ava": {
     "verbose": true

@@ -221,5 +221,5 @@ module.exports = {
   get: get,
   set: set,
   delete: del,
-  has: has
+  has: has,
 };
