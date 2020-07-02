@@ -1,5 +1,7 @@
 <h1 align="center">
-  <a href="https://github.com/simonepri/env-dot-prop"><img src="./media/env-dot-prop.png" alt="env-dot-prop" /></a>
+  <a href="https://github.com/simonepri/env-dot-prop">
+    <img src="https://github.com/simonepri/env-dot-prop/raw/master/media/env-dot-prop.png" alt="env-dot-prop" />
+  </a>
 </h1>
 <p align="center">
   <!-- Version - npm -->
