@@ -1,5 +1,5 @@
-import test from 'ava';
-import m from '.';
+const test = require('ava');
+const m = require('.');
 
 test.beforeEach(t => {
   t.context.env = Object.assign({}, process.env);
@@ -65,7 +65,7 @@ test.serial('should get the envs correctly when parse is enabled', t => {
   process.env.TEST = '{"a":42}';
   t.deepEqual(m.get('test', {parse: true}), {a: 42});
   process.env.TEST = '}{';
-  t.deepEqual(m.get('test', {parse: true}), '}{');
+  t.is(m.get('test', {parse: true}), '}{');
 });
 
 test.serial('should set the envs correctly when stringify is enabled', t => {
@@ -147,7 +147,7 @@ test.serial('should get the envs correctly when parse is disabled', t => {
     '2',
     {a: 3, b: 4},
     true,
-    null,
+    null
   ]);
   process.env.TEST = {};
   t.deepEqual(m.get('test', {parse: false}), {});
@@ -175,13 +175,13 @@ test.serial('should get the envs correctly when parse is disabled', t => {
   process.env.TEST = 'NaN';
   t.is(m.get('test', {parse: false}), 'NaN');
   process.env.TEST = '[]';
-  t.deepEqual(m.get('test', {parse: false}), '[]');
+  t.is(m.get('test', {parse: false}), '[]');
   process.env.TEST = '[1,"2",{"a":3,"b":4},true,null]';
-  t.deepEqual(m.get('test', {parse: false}), '[1,"2",{"a":3,"b":4},true,null]');
+  t.is(m.get('test', {parse: false}), '[1,"2",{"a":3,"b":4},true,null]');
   process.env.TEST = '{}';
-  t.deepEqual(m.get('test', {parse: false}), '{}');
+  t.is(m.get('test', {parse: false}), '{}');
   process.env.TEST = '{"a":42}';
-  t.deepEqual(m.get('test', {parse: false}), '{"a":42}');
+  t.is(m.get('test', {parse: false}), '{"a":42}');
 });
 
 test.serial('should set the envs correctly when stringify is disabled', t => {
@@ -239,7 +239,7 @@ test.serial('should return a value for full env path', t => {
 test.serial('should return the default value', t => {
   t.is(m.get('i.n.v.a.l.i.d', 42), 42);
   t.deepEqual(m.get('i.n.v.a.l.i.d', {a: 1}, {}), {a: 1});
-  t.deepEqual(m.get('i.n.v.a.l.i.d', {}), undefined);
+  t.is(m.get('i.n.v.a.l.i.d', {}), undefined);
 });
 
 test.serial(
@@ -287,36 +287,36 @@ test.serial('should allow to get non-capitalized env keys', t => {
 
 test.serial('should work with the empty string env variable', t => {
   process.env = {
-    '': 'test',
+    '': 'test'
   };
-  t.deepEqual(m.get(''), 'test');
+  t.is(m.get(''), 'test');
   process.env = {
     _a: 'a',
-    _b: 'b',
+    _b: 'b'
   };
   t.deepEqual(m.get(''), {'': {a: 'a', b: 'b'}});
   m.set('', 'only this should exists');
-  t.deepEqual(m.get(''), 'only this should exists');
+  t.is(m.get(''), 'only this should exists');
 });
 
 test.serial('should work if some env vars overlap', t => {
   process.env = {
     KEY: 'this must be ignored',
     KEY_A: 'a',
-    KEY_B: 'b',
+    KEY_B: 'b'
   };
   t.deepEqual(m.get(''), {key: {a: 'a', b: 'b'}});
   t.deepEqual(m.get('key'), {a: 'a', b: 'b'});
 });
 
-test.serial('should pass README examples', t => {
+test.serial('should pass readme examples', t => {
   process.env = {
     FOO_BAR: 'unicorn',
     'FOO_DOT.DOT': 'pony',
-    'FOO_UND\\_UND': 'whale',
+    'FOO_UND\\_UND': 'whale'
   };
   t.deepEqual(m.get(''), {
-    foo: {bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale'},
+    foo: {bar: 'unicorn', 'dot.dot': 'pony', und_und: 'whale'}
   });
   t.is(m.get('foo.bar'), 'unicorn');
   t.is(m.get('foo.notDefined.deep'), undefined);
@@ -325,20 +325,20 @@ test.serial('should pass README examples', t => {
   m.set('foo.bar', 'b');
   t.is(m.get('foo.bar'), 'b');
   t.deepEqual(m.get(''), {
-    foo: {bar: 'b', 'dot.dot': 'pony', und_und: 'whale'},
+    foo: {bar: 'b', 'dot.dot': 'pony', und_und: 'whale'}
   });
   m.set('foo.baz.e', 'x');
   t.is(m.get('foo.baz.e'), 'x');
   t.deepEqual(m.get('foo.baz'), {e: 'x'});
   t.deepEqual(m.get(''), {
-    foo: {bar: 'b', baz: {e: 'x'}, 'dot.dot': 'pony', und_und: 'whale'},
+    foo: {bar: 'b', baz: {e: 'x'}, 'dot.dot': 'pony', und_und: 'whale'}
   });
   t.is(m.has('foo.bar'), true);
   m.delete('foo.bar');
   t.deepEqual(m.get('foo'), {
     baz: {e: 'x'},
     'dot.dot': 'pony',
-    und_und: 'whale',
+    und_und: 'whale'
   });
   m.delete('foo.baz.e');
   t.is(m.get('foo.baz'), undefined);
@@ -357,6 +357,6 @@ test.serial('should pass README examples', t => {
     n1: '42',
     n2: 42,
     n3: 42,
-    n4: '42',
+    n4: '42'
   });
 });

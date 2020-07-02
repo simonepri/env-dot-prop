@@ -26,6 +26,7 @@ function transform(str, from, to) {
       out += str[i];
     }
   }
+
   return out;
 }
 
@@ -65,6 +66,7 @@ function keys(path, opts) {
       key.toUpperCase().startsWith(env)
     );
   }
+
   return Object.keys(process.env).filter(key => key.startsWith(env));
 }
 
@@ -84,6 +86,7 @@ function parse(str, opts) {
 
   try {
     return JSON.parse(str);
+    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     return str;
   }
@@ -93,6 +96,7 @@ function stringify(val, opts) {
   if (typeof val === 'string' || !opts.stringify) {
     return val;
   }
+
   if (typeof val === 'object') {
     return JSON.stringify(val);
   }
@@ -123,6 +127,7 @@ function get(path, defaultValue, opts) {
   } else {
     opts = {};
   }
+
   defaultValue = args.pop();
 
   keys(path, opts)
@@ -132,6 +137,7 @@ function get(path, defaultValue, opts) {
       if (!opts.caseSensitive) {
         dotp = dotp.toLowerCase();
       }
+
       const val = parse(process.env[key], opts);
       if (dotp === '') {
         obj = val;
@@ -139,6 +145,7 @@ function get(path, defaultValue, opts) {
         if (typeof obj !== 'object') {
           obj = {};
         }
+
         dotProp.set(obj, dotp, val);
       }
     });
@@ -147,9 +154,11 @@ function get(path, defaultValue, opts) {
   if (!opts.caseSensitive) {
     prefix = prefix.toLowerCase();
   }
+
   if (path === '') {
     return obj;
   }
+
   return dotProp.get(obj, prefix, defaultValue);
 }
 
@@ -221,5 +230,5 @@ module.exports = {
   get: get,
   set: set,
   delete: del,
-  has: has,
+  has: has
 };
