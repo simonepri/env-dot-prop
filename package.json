@@ -43,7 +43,7 @@
     "update": "npx npm-check -u"
   },
   "dependencies": {
-    "dot-prop": "^5.2.0"
+    "dot-prop": "^6.0.1"
   },
   "devDependencies": {
     "ava": "^3.9.0",
