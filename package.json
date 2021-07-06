@@ -48,7 +48,7 @@
   "devDependencies": {
     "ava": "^3.9.0",
     "nyc": "^15.1.0",
-    "xo": "~0.27.2"
+    "xo": "~0.41.0"
   },
   "ava": {
     "verbose": true
